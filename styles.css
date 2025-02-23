@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: #0d1a38;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    perspective: 1000px;
+}
+
+.gradient-bg {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(122, 158, 219, 0.6), rgba(13, 26, 56, 0));
+    filter: blur(50px);
+    animation: pulseGlow 6s ease infinite;
+}
+
+.game-circle {
+    width: 450px;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(60, 102, 173, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.game-circle:hover {
+    transform: rotateY(5deg) rotateX(5deg);
+}
+
+h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+
+.status {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    padding: 20px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.cell.x::before {
+    content: 'X';
+    color: #a1bdec;
+    text-shadow: 0 0 10px rgba(42, 82, 152, 0.8);
+    animation: fadeInMark 0.5s ease;
+}
+
+.cell.o::before {
+    content: 'O';
+    color: #a4a5a7;
+    text-shadow: 0 0 10px rgba(107, 114, 128, 0.8);
+    animation: fadeInMark 0.5s ease;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #1e3c72, #2a5298);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(42, 82, 152, 0.6);
+    background: linear-gradient(45deg, #2a5298, #6b7280);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+
+@keyframes fadeInMark {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Winning Line (Monoline Style) */
+.winning-line {
+    position: absolute;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    height: 4px;
+    animation: drawLine 0.5s ease forwards;
+}
+
+@keyframes drawLine {
+    from { width: 0; }
+    to { width: 100%; }
+}
